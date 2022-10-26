@@ -33,4 +33,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::get('/banners/add', [App\Http\Controllers\BannerController::class, 'addBanners'])->name('banners.add');
     Route::post('/banners/store', [App\Http\Controllers\BannerController::class, 'storeBanners'])->name('banners.store');
     Route::post('/updateStatus', [App\Http\Controllers\BannerController::class, 'updateStatus'])->name('banners.status');
+
+    //Categories
+    Route::get('/categories', [App\Http\Controllers\CoreController::class, 'getCategories'])->name('categories');
 });
