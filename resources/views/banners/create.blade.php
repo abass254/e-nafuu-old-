@@ -16,7 +16,7 @@
         @endif
     </div>
     <div class="card-body">
-      <form class="form form-vertical" method="POST" action="{{ route('banners.store') }}">
+      <form id="save-banner" class="form form-vertical" method="POST" action="{{ route('banners.store') }}">
         @csrf
         <div class="row">
           <div class="col-12">

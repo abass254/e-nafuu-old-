@@ -17,5 +17,10 @@ class UserController extends Controller
         return $users = User::all();
     }
 
+    public function getUserUuid($id){
+        $banner = DB::table('users')->select(DB::RAW('id'))->where('id', $id)->get();
+        return $banner;
+    }
+
 
 }

@@ -27,6 +27,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
     //Users
     Route::get('/users', [App\Http\Controllers\UserController::class, 'getUsers'])->name('users');
+   // Route::get('/users/{id}', [App\Http\Controllers\UserController::class, 'getUsers'])->name('users');
+
 
     //Banners
     Route::get('/banners', [App\Http\Controllers\BannerController::class, 'getBanners'])->name('banners');
@@ -36,4 +38,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
     //Categories
     Route::get('/categories', [App\Http\Controllers\CoreController::class, 'getCategories'])->name('categories');
+    Route::get('/categories/{id}', [App\Http\Controllers\CoreController::class, 'getCategoryById']);
+
+    //Brands
+    Route::get('/brands', [App\Http\Controllers\CoreController::class, 'getBrands'])->name('brands');
 });

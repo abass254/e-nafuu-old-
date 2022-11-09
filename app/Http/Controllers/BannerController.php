@@ -21,19 +21,38 @@ class BannerController extends Controller
     }
 
     public function storeBanners(Request $req){
+        if($req->id){
 
-        $banners = new Banner();
-        $banners->title = $req->title;
-        $banners->uuid = Str::random(30);
-        $banners->description = $req->description;
-        $banners->photo = $req->photo;
-        $banners->condition = $req->conditions;
-        $banners->status = $req->status;
-        $banners->save();
-        redirect()->route('banners.add')->with('success', 'Successfully Added');
+             DB::table('banners')->where('id', $req->id)->update([
+                'title'=>$req->title,
+                'description'=>$req->description,
+                'photo' => $req->photo
+             ]);
+             return response()->json([
+                'message' => 'Successfully Updated',
+                'status' => true,
+            ]);
+        }
+        else{
+            $banners = new Banner();
+            $banners->title = $req->title;
+            $banners->uuid = Str::random(30);
+            $banners->description = $req->description;
+            $banners->photo = $req->photo;
+            $banners->condition = $req->conditions;
+            $banners->status = $req->status;
+            $banners->save();
+
+            return response()->json([
+            'message' => 'Successfully Added',
+            'status' => true,
+        ]);
+
+        }
     }
 
     public function updateStatus(Request $req){
+
         if($req->mode == "true"){
             DB::table('banners')->where('id', $req->id)->update(['status'=>'active']);
         }
@@ -42,8 +61,13 @@ class BannerController extends Controller
         }
 
         return response()->json([
-            'msg' => 'Successfully Added',
+            'msg' => 'Banner Successfully updated   ',
             'status' => true,
         ]);
+    }
+
+    public function getBannerId($id){
+        $banner = DB::table('banners')->select(DB::RAW('id'))->where('id', $id)->get();
+        return $banner;
     }
 }
